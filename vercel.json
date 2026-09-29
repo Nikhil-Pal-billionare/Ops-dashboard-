@@ -1,5 +1,6 @@
 {
   "outputDirectory": "public",
+  "functions": { "api/team.js": { "maxDuration": 60 } },
   "headers": [
     {
       "source": "/(.*)",
