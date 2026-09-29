@@ -118,12 +118,14 @@ h3 { margin: 24px 0 10px; font-size: 15px; }
     <button role="tab" data-tab="clients" aria-selected="false">Clients</button>
     <button role="tab" data-tab="business" aria-selected="false">Business</button>
     <button role="tab" data-tab="data" aria-selected="false">Add data</button>
+    <button role="tab" data-tab="team" aria-selected="false">Team Management</button>
   </nav>
 
   <section id="tab-overview"></section>
   <section id="tab-clients" class="hidden"></section>
   <section id="tab-business" class="hidden"></section>
   <section id="tab-data" class="hidden"></section>
+  <section id="tab-team" class="hidden"></section>
 </div>
 
 <script>
@@ -955,7 +957,7 @@ h3 { margin: 24px 0 10px; font-size: 15px; }
     document.querySelectorAll("#tabs button").forEach(function (x) {
       x.setAttribute("aria-selected", x === b ? "true" : "false");
     });
-    ["overview", "clients", "business", "data"].forEach(function (t) {
+      ["overview", "clients", "business", "data", "team"].forEach(function (t) {
       document.getElementById("tab-" + t).classList.toggle("hidden", t !== ui.tab);
     });
   });
@@ -997,5 +999,7 @@ h3 { margin: 24px 0 10px; font-size: 15px; }
   cloudBoot();
 })();
 </script>
+<script src="pinwriter.js"></script>
+<script src="team-mgmt.js"></script>
 </body>
 </html>
