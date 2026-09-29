@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GrowMyPin Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#faf7f5;color:#1f1a1a;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.w{max-width:760px;margin:0 auto;padding:16px}
+label{display:block;font-size:12px;font-weight:600;color:#6b6262;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #e6dedb;border-radius:10px;font:inherit;background:#fff}
+.btn{cursor:pointer;border:1px solid #e6dedb;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;background:#fff}
+.btn.primary{background:#e60023;color:#fff;border-color:#e60023}
+.btn:disabled{opacity:.5}
+.note{font-size:13px;color:#6b6262}
+.err{color:#e60023}
+</style>
+</head>
+<body>
+<div class="w"><h1>GrowMyPin Studio</h1><div id="app"></div></div>
+<script src="pinwriter.js"></script>
+<script>
+var app = document.getElementById("app");
+function api(action, body) {
+  return fetch("/api/team", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.assign({ action: action }, body || {})) })
+    .then(function (r) { return r.json().then(function (d) { if (!r.ok) { var e = new Error(d.error || "Failed"); e.status = r.status; throw e; } return d; }); });
+}
+function form(fields, btn, onSubmit, msg) {
+  app.innerHTML = fields + '<p><button class="btn primary" id="go">' + btn + '</button></p><div class="err" id="er">' + (msg || "") + "</div>";
+  document.getElementById("go").onclick = onSubmit;
+}
+function loginView(msg) {
+  form('<label>Email</label><input id="e" type="email" autocapitalize="none"><label>Password</label><input id="p" type="password">', "Login", function () {
+    api("login", { email: document.getElementById("e").value, password: document.getElementById("p").value })
+      .then(boot)
+      .catch(function (e) { loginView(e.status === 403 ? "Is device ka access band hai." : "Email ya password galat hai."); });
+  }, msg);
+}
+function unlockView(msg) {
+  form('<label>Work password (admin se lo)</label><input id="w" type="password">', "Unlock", function () {
+    api("unlock", { password: document.getElementById("w").value }).then(boot).catch(function () { unlockView("Work password galat hai ya abhi set nahi hua."); });
+  }, msg);
+}
+function boot() {
+  api("boot").then(function (d) {
+    if (!d.unlocked) return unlockView();
+    app.innerHTML = '<p class="note">' + d.email + ' | <a href="#" id="out">Logout</a></p><div id="pw"></div>';
+    document.getElementById("out").onclick = function (e) { e.preventDefault(); api("logout").then(function () { loginView(); }); };
+    window.mountPW(document.getElementById("pw"), api, d.cfg || {});
+  }).catch(function () { loginView(); });
+}
+boot();
+</script>
+</body>
+</html>
