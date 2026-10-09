@@ -63,7 +63,7 @@
       }).then(function (d) {
         copies = [];
         var h = (d.pins || []).map(function (p, i) {
-          return '<div style="border-left:3px solid #e60023;padding:8px 12px;margin:12px 0"><b>Pin ' + (i + 1) + (p.angle ? " - " + esc(p.angle) : "") + "</b>" +
+          return '<div style="border-left:3px solid var(--pin, #0E7C6E);padding:8px 12px;margin:12px 0"><b>Pin ' + (i + 1) + (p.angle ? " - " + esc(p.angle) : "") + "</b>" +
             field("Pin Title", p.title) + field("Pin Description", p.description) + field("Alt Text", p.alt_text) + field("ChatGPT Image Prompt", p.image_prompt) + "</div>";
         }).join("");
         (d.listing_flags || []).forEach(function (f) { h += '<p class="note">Flag: ' + esc(f) + "</p>"; });
