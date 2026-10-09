@@ -10,19 +10,22 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#faf7f5;color:#1f1a1a;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{margin:0;background:#F4F6F5;color:#23282E;font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 .w{max-width:760px;margin:0 auto;padding:16px}
-label{display:block;font-size:12px;font-weight:600;color:#6b6262;margin:10px 0 4px}
-input,select,textarea{width:100%;padding:10px;border:1px solid #e6dedb;border-radius:10px;font:inherit;background:#fff}
-.btn{cursor:pointer;border:1px solid #e6dedb;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;background:#fff}
-.btn.primary{background:#e60023;color:#fff;border-color:#e60023}
+label{display:block;font-size:12px;font-weight:600;color:#5F6B70;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #DCE3E0;border-radius:10px;font:inherit;background:#fff}
+.btn{cursor:pointer;border:1px solid #DCE3E0;border-radius:10px;padding:10px 16px;font:inherit;font-weight:600;background:#fff}
+.btn.primary{background:#0E7C6E;color:#fff;border-color:#0E7C6E}
 .btn:disabled{opacity:.5}
-.note{font-size:13px;color:#6b6262}
-.err{color:#e60023}
+.note{font-size:13px;color:#5F6B70}
+.err{color:#B45309}
+h1{display:flex;align-items:center;gap:10px;font-size:22px}
+h1 img{width:32px;height:32px;border-radius:7px;background:#fff}
+:root{--pin:#0E7C6E}
 </style>
 </head>
 <body>
-<div class="w"><h1>GrowMyPin Studio</h1><div id="app"></div></div>
+<div class="w"><h1><img src="/favicon-192.png" alt="">GrowMyPin Studio</h1><div id="app"></div></div>
 <script src="pinwriter.js"></script>
 <script>
 var app = document.getElementById("app");
